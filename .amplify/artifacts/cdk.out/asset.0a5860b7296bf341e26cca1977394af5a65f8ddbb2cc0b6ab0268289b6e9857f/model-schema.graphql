@@ -1,0 +1,9 @@
+type Todo @model @auth(rules: [{allow: owner, ownerField: "owner"},
+  {allow: public, operations: [read]}])
+{
+  id: ID! @primaryKey
+  content: String
+  owner: String
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}

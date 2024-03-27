@@ -1,0 +1,895 @@
+{
+ "Description": "{\"createdOn\":\"Mac\",\"createdBy\":\"AmplifySandbox\",\"createdWith\":\"0.6.0-beta.3\",\"stackType\":\"auth-Cognito\",\"metadata\":{}}",
+ "Resources": {
+  "SecretFetcherResourceProviderLambdaServiceRole5ABAF823": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "amplify:deployment-type",
+      "Value": "sandbox"
+     },
+     {
+      "Key": "created-by",
+      "Value": "amplify"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifygen2amazonfederate-amaktala-sandbox-90d52485a8/auth/SecretFetcherResourceProviderLambda/ServiceRole/Resource"
+   }
+  },
+  "SecretFetcherResourceProviderLambdaServiceRoleDefaultPolicyD52F71CB": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": "ssm:GetParameter",
+       "Effect": "Allow",
+       "Resource": [
+        "arn:aws:ssm:*:*:parameter/amplify/amplifygen2amazonfederate/amaktala-sandbox-90d52485a8/*",
+        "arn:aws:ssm:*:*:parameter/amplify/shared/amplify-gen2-amazon-federate/*"
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "SecretFetcherResourceProviderLambdaServiceRoleDefaultPolicyD52F71CB",
+    "Roles": [
+     {
+      "Ref": "SecretFetcherResourceProviderLambdaServiceRole5ABAF823"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifygen2amazonfederate-amaktala-sandbox-90d52485a8/auth/SecretFetcherResourceProviderLambda/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "SecretFetcherResourceProviderLambda1ECC380E": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": {
+      "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+     },
+     "S3Key": "475fd89644a09a40b619e5d9e57d1da57303fe2c6297a9b7f5d1f3f768c65547.zip"
+    },
+    "Environment": {
+     "Variables": {
+      "AWS_NODEJS_CONNECTION_REUSE_ENABLED": "1"
+     }
+    },
+    "Handler": "index.handler",
+    "Role": {
+     "Fn::GetAtt": [
+      "SecretFetcherResourceProviderLambdaServiceRole5ABAF823",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs18.x",
+    "Tags": [
+     {
+      "Key": "amplify:deployment-type",
+      "Value": "sandbox"
+     },
+     {
+      "Key": "created-by",
+      "Value": "amplify"
+     }
+    ],
+    "Timeout": 10
+   },
+   "DependsOn": [
+    "SecretFetcherResourceProviderLambdaServiceRoleDefaultPolicyD52F71CB",
+    "SecretFetcherResourceProviderLambdaServiceRole5ABAF823"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifygen2amazonfederate-amaktala-sandbox-90d52485a8/auth/SecretFetcherResourceProviderLambda/Resource",
+    "aws:asset:path": "asset.475fd89644a09a40b619e5d9e57d1da57303fe2c6297a9b7f5d1f3f768c65547",
+    "aws:asset:is-bundled": true,
+    "aws:asset:property": "Code"
+   }
+  },
+  "SecretFetcherResourceProviderframeworkonEventServiceRoleA7B78041": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRole",
+       "Effect": "Allow",
+       "Principal": {
+        "Service": "lambda.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "ManagedPolicyArns": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:",
+        {
+         "Ref": "AWS::Partition"
+        },
+        ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+       ]
+      ]
+     }
+    ],
+    "Tags": [
+     {
+      "Key": "amplify:deployment-type",
+      "Value": "sandbox"
+     },
+     {
+      "Key": "created-by",
+      "Value": "amplify"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifygen2amazonfederate-amaktala-sandbox-90d52485a8/auth/SecretFetcherResourceProvider/framework-onEvent/ServiceRole/Resource"
+   }
+  },
+  "SecretFetcherResourceProviderframeworkonEventServiceRoleDefaultPolicy38F3A916": {
+   "Type": "AWS::IAM::Policy",
+   "Properties": {
+    "PolicyDocument": {
+     "Statement": [
+      {
+       "Action": "lambda:InvokeFunction",
+       "Effect": "Allow",
+       "Resource": [
+        {
+         "Fn::GetAtt": [
+          "SecretFetcherResourceProviderLambda1ECC380E",
+          "Arn"
+         ]
+        },
+        {
+         "Fn::Join": [
+          "",
+          [
+           {
+            "Fn::GetAtt": [
+             "SecretFetcherResourceProviderLambda1ECC380E",
+             "Arn"
+            ]
+           },
+           ":*"
+          ]
+         ]
+        }
+       ]
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "PolicyName": "SecretFetcherResourceProviderframeworkonEventServiceRoleDefaultPolicy38F3A916",
+    "Roles": [
+     {
+      "Ref": "SecretFetcherResourceProviderframeworkonEventServiceRoleA7B78041"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifygen2amazonfederate-amaktala-sandbox-90d52485a8/auth/SecretFetcherResourceProvider/framework-onEvent/ServiceRole/DefaultPolicy/Resource"
+   }
+  },
+  "SecretFetcherResourceProviderframeworkonEvent960CF056": {
+   "Type": "AWS::Lambda::Function",
+   "Properties": {
+    "Code": {
+     "S3Bucket": {
+      "Fn::Sub": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}"
+     },
+     "S3Key": "4b8313cdc235017293aeaa9b32282f38142f7e6923fd0ac5322de1edf4b426d7.zip"
+    },
+    "Description": "AWS CDK resource provider framework - onEvent (amplify-amplifygen2amazonfederate-amaktala-sandbox-90d52485a8/auth/SecretFetcherResourceProvider)",
+    "Environment": {
+     "Variables": {
+      "USER_ON_EVENT_FUNCTION_ARN": {
+       "Fn::GetAtt": [
+        "SecretFetcherResourceProviderLambda1ECC380E",
+        "Arn"
+       ]
+      }
+     }
+    },
+    "Handler": "framework.onEvent",
+    "Role": {
+     "Fn::GetAtt": [
+      "SecretFetcherResourceProviderframeworkonEventServiceRoleA7B78041",
+      "Arn"
+     ]
+    },
+    "Runtime": "nodejs18.x",
+    "Tags": [
+     {
+      "Key": "amplify:deployment-type",
+      "Value": "sandbox"
+     },
+     {
+      "Key": "created-by",
+      "Value": "amplify"
+     }
+    ],
+    "Timeout": 900
+   },
+   "DependsOn": [
+    "SecretFetcherResourceProviderframeworkonEventServiceRoleDefaultPolicy38F3A916",
+    "SecretFetcherResourceProviderframeworkonEventServiceRoleA7B78041"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifygen2amazonfederate-amaktala-sandbox-90d52485a8/auth/SecretFetcherResourceProvider/framework-onEvent/Resource",
+    "aws:asset:path": "asset.4b8313cdc235017293aeaa9b32282f38142f7e6923fd0ac5322de1edf4b426d7",
+    "aws:asset:is-bundled": false,
+    "aws:asset:property": "Code"
+   }
+  },
+  "GEN2OIDCCLIENTIDSecretFetcherResource": {
+   "Type": "Custom::SecretFetcherResource",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "SecretFetcherResourceProviderframeworkonEvent960CF056",
+      "Arn"
+     ]
+    },
+    "namespace": "amplify-gen2-amazon-federate",
+    "name": "amaktala",
+    "type": "sandbox",
+    "secretName": "GEN2_OIDC_CLIENT_ID",
+    "secretLastUpdated": "1709665137330"
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifygen2amazonfederate-amaktala-sandbox-90d52485a8/auth/GEN2_OIDC_CLIENT_IDSecretFetcherResource/Default"
+   }
+  },
+  "GEN2OIDCCLIENTSECRETSecretFetcherResource": {
+   "Type": "Custom::SecretFetcherResource",
+   "Properties": {
+    "ServiceToken": {
+     "Fn::GetAtt": [
+      "SecretFetcherResourceProviderframeworkonEvent960CF056",
+      "Arn"
+     ]
+    },
+    "namespace": "amplify-gen2-amazon-federate",
+    "name": "amaktala",
+    "type": "sandbox",
+    "secretName": "GEN2_OIDC_CLIENT_SECRET",
+    "secretLastUpdated": "1709665137330"
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifygen2amazonfederate-amaktala-sandbox-90d52485a8/auth/GEN2_OIDC_CLIENT_SECRETSecretFetcherResource/Default"
+   }
+  },
+  "amplifyAuthUserPool4BA7F805": {
+   "Type": "AWS::Cognito::UserPool",
+   "Properties": {
+    "AccountRecoverySetting": {
+     "RecoveryMechanisms": [
+      {
+       "Name": "verified_email",
+       "Priority": 1
+      }
+     ]
+    },
+    "AdminCreateUserConfig": {
+     "AllowAdminCreateUserOnly": false
+    },
+    "AutoVerifiedAttributes": [
+     "email"
+    ],
+    "EmailVerificationMessage": "The verification code to your new account is {####}",
+    "EmailVerificationSubject": "Verify your new account",
+    "Policies": {
+     "PasswordPolicy": {
+      "MinimumLength": 8,
+      "RequireLowercase": true,
+      "RequireNumbers": true,
+      "RequireSymbols": true,
+      "RequireUppercase": true
+     }
+    },
+    "Schema": [
+     {
+      "Mutable": true,
+      "Name": "email",
+      "Required": true
+     }
+    ],
+    "SmsVerificationMessage": "The verification code to your new account is {####}",
+    "UserAttributeUpdateSettings": {
+     "AttributesRequireVerificationBeforeUpdate": [
+      "email"
+     ]
+    },
+    "UserPoolTags": {
+     "amplify:deployment-type": "sandbox",
+     "created-by": "amplify"
+    },
+    "UsernameAttributes": [
+     "email"
+    ],
+    "UsernameConfiguration": {
+     "CaseSensitive": false
+    },
+    "VerificationMessageTemplate": {
+     "DefaultEmailOption": "CONFIRM_WITH_CODE",
+     "EmailMessage": "The verification code to your new account is {####}",
+     "EmailSubject": "Verify your new account",
+     "SmsMessage": "The verification code to your new account is {####}"
+    }
+   },
+   "UpdateReplacePolicy": "Delete",
+   "DeletionPolicy": "Delete",
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifygen2amazonfederate-amaktala-sandbox-90d52485a8/auth/amplifyAuth/UserPool/Resource"
+   }
+  },
+  "amplifyAuthUserPoolUserPoolDomain1F688B5B": {
+   "Type": "AWS::Cognito::UserPoolDomain",
+   "Properties": {
+    "Domain": "amplifygen2",
+    "UserPoolId": {
+     "Ref": "amplifyAuthUserPool4BA7F805"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifygen2amazonfederate-amaktala-sandbox-90d52485a8/auth/amplifyAuth/UserPool/UserPoolDomain/Resource"
+   }
+  },
+  "amplifyAuthAmplifyGen2OIDCOidcIDP3EE5E718": {
+   "Type": "AWS::Cognito::UserPoolIdentityProvider",
+   "Properties": {
+    "AttributeMapping": {
+     "email": "email"
+    },
+    "ProviderDetails": {
+     "client_id": {
+      "Fn::GetAtt": [
+       "GEN2OIDCCLIENTIDSecretFetcherResource",
+       "secretValue"
+      ]
+     },
+     "client_secret": {
+      "Fn::GetAtt": [
+       "GEN2OIDCCLIENTSECRETSecretFetcherResource",
+       "secretValue"
+      ]
+     },
+     "authorize_scopes": "openid aws.cognito.signin.user.admin email profile phone",
+     "attributes_request_method": "GET",
+     "oidc_issuer": "https://idp-integ.federate.amazon.com"
+    },
+    "ProviderName": "AmplifyGen2OIDC",
+    "ProviderType": "OIDC",
+    "UserPoolId": {
+     "Ref": "amplifyAuthUserPool4BA7F805"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifygen2amazonfederate-amaktala-sandbox-90d52485a8/auth/amplifyAuth/AmplifyGen2OIDCOidcIDP/Resource"
+   }
+  },
+  "amplifyAuthUserPoolAppClient2626C6F8": {
+   "Type": "AWS::Cognito::UserPoolClient",
+   "Properties": {
+    "AllowedOAuthFlows": [
+     "code"
+    ],
+    "AllowedOAuthFlowsUserPoolClient": true,
+    "AllowedOAuthScopes": [
+     "phone",
+     "email",
+     "openid",
+     "profile",
+     "aws.cognito.signin.user.admin"
+    ],
+    "CallbackURLs": [
+     "http://localhost:5173"
+    ],
+    "ExplicitAuthFlows": [
+     "ALLOW_CUSTOM_AUTH",
+     "ALLOW_USER_SRP_AUTH",
+     "ALLOW_REFRESH_TOKEN_AUTH"
+    ],
+    "LogoutURLs": [
+     "http://localhost:5173"
+    ],
+    "PreventUserExistenceErrors": "ENABLED",
+    "SupportedIdentityProviders": [
+     {
+      "Ref": "amplifyAuthAmplifyGen2OIDCOidcIDP3EE5E718"
+     },
+     "COGNITO"
+    ],
+    "UserPoolId": {
+     "Ref": "amplifyAuthUserPool4BA7F805"
+    }
+   },
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifygen2amazonfederate-amaktala-sandbox-90d52485a8/auth/amplifyAuth/UserPoolAppClient/Resource"
+   }
+  },
+  "amplifyAuthIdentityPool3FDE84CC": {
+   "Type": "AWS::Cognito::IdentityPool",
+   "Properties": {
+    "AllowUnauthenticatedIdentities": true,
+    "CognitoIdentityProviders": [
+     {
+      "ClientId": {
+       "Ref": "amplifyAuthUserPoolAppClient2626C6F8"
+      },
+      "ProviderName": {
+       "Fn::Join": [
+        "",
+        [
+         "cognito-idp.",
+         {
+          "Ref": "AWS::Region"
+         },
+         ".amazonaws.com/",
+         {
+          "Ref": "amplifyAuthUserPool4BA7F805"
+         }
+        ]
+       ]
+      }
+     }
+    ],
+    "OpenIdConnectProviderARNs": [
+     {
+      "Fn::Join": [
+       "",
+       [
+        "arn:aws:iam:",
+        {
+         "Ref": "AWS::Region"
+        },
+        ":",
+        {
+         "Ref": "AWS::AccountId"
+        },
+        ":oidc-provider/cognito-idp.",
+        {
+         "Ref": "AWS::Region"
+        },
+        ".amazonaws.com/",
+        {
+         "Ref": "amplifyAuthAmplifyGen2OIDCOidcIDP3EE5E718"
+        }
+       ]
+      ]
+     }
+    ],
+    "SupportedLoginProviders": {}
+   },
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifygen2amazonfederate-amaktala-sandbox-90d52485a8/auth/amplifyAuth/IdentityPool"
+   }
+  },
+  "amplifyAuthauthenticatedUserRoleD8DA3689": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRoleWithWebIdentity",
+       "Condition": {
+        "StringEquals": {
+         "cognito-identity.amazonaws.com:aud": {
+          "Ref": "amplifyAuthIdentityPool3FDE84CC"
+         }
+        },
+        "ForAnyValue:StringLike": {
+         "cognito-identity.amazonaws.com:amr": "authenticated"
+        }
+       },
+       "Effect": "Allow",
+       "Principal": {
+        "Federated": "cognito-identity.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "Tags": [
+     {
+      "Key": "amplify:deployment-type",
+      "Value": "sandbox"
+     },
+     {
+      "Key": "created-by",
+      "Value": "amplify"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifygen2amazonfederate-amaktala-sandbox-90d52485a8/auth/amplifyAuth/authenticatedUserRole/Resource"
+   }
+  },
+  "amplifyAuthunauthenticatedUserRole2B524D9E": {
+   "Type": "AWS::IAM::Role",
+   "Properties": {
+    "AssumeRolePolicyDocument": {
+     "Statement": [
+      {
+       "Action": "sts:AssumeRoleWithWebIdentity",
+       "Condition": {
+        "StringEquals": {
+         "cognito-identity.amazonaws.com:aud": {
+          "Ref": "amplifyAuthIdentityPool3FDE84CC"
+         }
+        },
+        "ForAnyValue:StringLike": {
+         "cognito-identity.amazonaws.com:amr": "unauthenticated"
+        }
+       },
+       "Effect": "Allow",
+       "Principal": {
+        "Federated": "cognito-identity.amazonaws.com"
+       }
+      }
+     ],
+     "Version": "2012-10-17"
+    },
+    "Tags": [
+     {
+      "Key": "amplify:deployment-type",
+      "Value": "sandbox"
+     },
+     {
+      "Key": "created-by",
+      "Value": "amplify"
+     }
+    ]
+   },
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifygen2amazonfederate-amaktala-sandbox-90d52485a8/auth/amplifyAuth/unauthenticatedUserRole/Resource"
+   }
+  },
+  "amplifyAuthIdentityPoolRoleAttachment045F17C8": {
+   "Type": "AWS::Cognito::IdentityPoolRoleAttachment",
+   "Properties": {
+    "IdentityPoolId": {
+     "Ref": "amplifyAuthIdentityPool3FDE84CC"
+    },
+    "RoleMappings": {
+     "UserPoolWebClientRoleMapping": {
+      "AmbiguousRoleResolution": "AuthenticatedRole",
+      "IdentityProvider": {
+       "Fn::Join": [
+        "",
+        [
+         "cognito-idp.",
+         {
+          "Ref": "AWS::Region"
+         },
+         ".amazonaws.com/",
+         {
+          "Ref": "amplifyAuthUserPool4BA7F805"
+         },
+         ":",
+         {
+          "Ref": "amplifyAuthUserPoolAppClient2626C6F8"
+         }
+        ]
+       ]
+      },
+      "Type": "Token"
+     }
+    },
+    "Roles": {
+     "unauthenticated": {
+      "Fn::GetAtt": [
+       "amplifyAuthunauthenticatedUserRole2B524D9E",
+       "Arn"
+      ]
+     },
+     "authenticated": {
+      "Fn::GetAtt": [
+       "amplifyAuthauthenticatedUserRoleD8DA3689",
+       "Arn"
+      ]
+     }
+    }
+   },
+   "DependsOn": [
+    "amplifyAuthIdentityPool3FDE84CC",
+    "amplifyAuthUserPoolAppClient2626C6F8"
+   ],
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifygen2amazonfederate-amaktala-sandbox-90d52485a8/auth/amplifyAuth/IdentityPoolRoleAttachment"
+   }
+  },
+  "CDKMetadata": {
+   "Type": "AWS::CDK::Metadata",
+   "Properties": {
+    "Analytics": "v2:deflate64:H4sIAAAAAAAA/11Ry07EMAz8Fu6poewFjrtFSFyWqohzlU1McR+xVKeLVlX/nfRJxckzHo9ljR8hPsTwcKd/JDK2imq6QH9G8Wg/vDaVCkLe17q5WJ07tlgKnKfy2jnjiZ0i3UCfcY0q+XJTTbkmcxvpjAYlh1yLoBc4jiVwOHWmQn/SgmpeD30wbFtXMCjDhSPP0H8KtilzPS7e8ApeuNHk9tLSWembRefJ39KWr2SxfSdr9uP/9c2Y1BSU/ehfZzMtZ+35GMXRhxC/m9AcBpWhcNcaVFMGId6CXKFMJ56bvF1Ege2AZFI215juDifsLM0JjX+BUu6v8RPEz+GbpRBFbRdOaRCyuf4CYflIRuoBAAA="
+   },
+   "Metadata": {
+    "aws:cdk:path": "amplify-amplifygen2amazonfederate-amaktala-sandbox-90d52485a8/auth/CDKMetadata/Default"
+   },
+   "Condition": "CDKMetadataAvailable"
+  }
+ },
+ "Conditions": {
+  "CDKMetadataAvailable": {
+   "Fn::Or": [
+    {
+     "Fn::Or": [
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "af-south-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-east-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-northeast-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-northeast-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-south-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-southeast-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ap-southeast-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "ca-central-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "cn-north-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "cn-northwest-1"
+       ]
+      }
+     ]
+    },
+    {
+     "Fn::Or": [
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-central-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-north-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-south-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-west-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-west-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "eu-west-3"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "il-central-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "me-central-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "me-south-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "sa-east-1"
+       ]
+      }
+     ]
+    },
+    {
+     "Fn::Or": [
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "us-east-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "us-east-2"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "us-west-1"
+       ]
+      },
+      {
+       "Fn::Equals": [
+        {
+         "Ref": "AWS::Region"
+        },
+        "us-west-2"
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ },
+ "Outputs": {
+  "amplifyamplifygen2amazonfederateamaktalasandbox90d52485a8authamplifyAuthUserPool86E6FF1ARef": {
+   "Value": {
+    "Ref": "amplifyAuthUserPool4BA7F805"
+   }
+  },
+  "amplifyamplifygen2amazonfederateamaktalasandbox90d52485a8authamplifyAuthUserPoolAppClient7B202FF0Ref": {
+   "Value": {
+    "Ref": "amplifyAuthUserPoolAppClient2626C6F8"
+   }
+  },
+  "amplifyamplifygen2amazonfederateamaktalasandbox90d52485a8authamplifyAuthIdentityPool89DA2EE9Ref": {
+   "Value": {
+    "Ref": "amplifyAuthIdentityPool3FDE84CC"
+   }
+  },
+  "amplifyamplifygen2amazonfederateamaktalasandbox90d52485a8authamplifyAuthAmplifyGen2OIDCOidcIDPCDE112C6Ref": {
+   "Value": {
+    "Ref": "amplifyAuthAmplifyGen2OIDCOidcIDP3EE5E718"
+   }
+  },
+  "amplifyamplifygen2amazonfederateamaktalasandbox90d52485a8authamplifyAuthauthenticatedUserRole8E300DDCRef": {
+   "Value": {
+    "Ref": "amplifyAuthauthenticatedUserRoleD8DA3689"
+   }
+  },
+  "amplifyamplifygen2amazonfederateamaktalasandbox90d52485a8authamplifyAuthunauthenticatedUserRole981260B2Ref": {
+   "Value": {
+    "Ref": "amplifyAuthunauthenticatedUserRole2B524D9E"
+   }
+  }
+ }
+}

@@ -33,7 +33,7 @@ export const auth = defineAuth({
       callbackUrls: ["http://localhost:5173"],
       logoutUrls: ["http://localhost:5173"],
       // This required value will be prepended to `.auth.us-west-2.amazoncognito.com` and used for your application's OAuth URL
-      domainPrefix: "amplifygen3",
+      domainPrefix: "amplifygen4",
     },
   },
 });

@@ -39,7 +39,7 @@ export const auth = defineAuth({
         "https://main.d25d1r2idtfra3.amplifyapp.com/",
       ],
       // This required value will be prepended to `.auth.us-west-2.amazoncognito.com` and used for your application's OAuth URL
-      domainPrefix: "amplifygen23",
+      domainPrefix: "amplifygen4",
     },
   },
 });

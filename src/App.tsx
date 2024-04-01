@@ -7,8 +7,6 @@ import "./App.css";
 
 Amplify.configure(config);
 
-
-
 function App() {
   const { user, signOut } = useAuthenticator((s) => [s.user, s.signOut]);
   const [attributes, setAttributes] =
@@ -28,7 +26,9 @@ function App() {
         </>
       ) : (
         <button
-          onClick={() => signInWithRedirect({ provider: { custom: "Midway" } })}
+          onClick={() =>
+            signInWithRedirect({ provider: { custom: "AmplifyGen2OIDC" } })
+          }
         >
           Sign-in with Midway
         </button>
